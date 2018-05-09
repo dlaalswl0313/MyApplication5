@@ -124,7 +124,23 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         bthService = new AceBluetoothSerialService(this, bthAdapter);
-
+    }
+    private void parseSensor(StringTok stSensorInput){
+        while(stSensorInput.hasLine()){
+            String sLine = stSensorInput.cutLine();
+            parseSensorLine(sLine);
+        }
+    }
+    private void parseSensorLine(String sLine){
+        StringTok stInput = new StringTok(sLine);
+        StringTok stToken = stInput.getToken();
+        if(stToken.toString().equals("getset")){
+            stToken = stInput.getToken(); //Sensor#
+            long nSensor = stInput.toLong();
+            stToken = stInput.getToken(); //Sensor value
+            double sensorVal = stToken.toDouble();
+            showMsg(String.format("%d:%g",nSensor, sensorVal));
+        }
     }
 
     @Override
