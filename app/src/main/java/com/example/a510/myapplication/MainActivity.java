@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
+import android.renderscript.ScriptGroup;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected Button btfind,btconnect,btread,btwrite;
     protected EditText etWrite;
     protected TextView tvread;
-
+    protected StringTok stSensorInput = new StringTok("");
     protected  void showMsg(String str){
         Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
     }
@@ -99,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str = bthService.getSerialInput();
-                tvread.setText(str);
+                stSensorInput.appendString(str);
+                tvread.setText(stSensorInput.toString()); //받은 결과가 잘 저장되어 있는가
             }
         });
 
