@@ -14,10 +14,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="FIND"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintHorizontal_bias="0.028"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +32,7 @@
         android:layout_marginTop="80dp"
         android:text="READ"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintHorizontal_bias="0.028"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,16 +46,16 @@
         android:layout_marginStart="8dp"
         android:text="CONNECT"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.771"
+        app:layout_constraintHorizontal_bias="0.372"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="27dp" />
 
     <Button
         android:id="@+id/btwrite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="224dp"
-        android:layout_marginStart="224dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginStart="112dp"
         android:layout_marginTop="80dp"
         android:text="WRITE"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,4 +94,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.962" />
+
+    <Button
+        android:id="@+id/btvss0"
+        android:layout_width="150dp"
+        android:layout_height="41dp"
+        android:layout_marginLeft="216dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="24dp"
+        android:text="VIEWSENSOR0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,10 +27,12 @@ public class MainActivity extends AppCompatActivity {
     protected BluetoothManager bthManager;
     protected BluetoothReceiver bthReciver;
     protected AceBluetoothSerialService bthService;
-    protected Button btfind,btconnect,btread,btwrite;
+    protected Button btfind,btconnect,btread,btwrite,btvss0;
     protected EditText etWrite;
     protected TextView tvread;
     protected StringTok stSensorInput = new StringTok("");
+    protected ArrayList<Double> arSensor0,arSensor1,arSensor2;
+
     protected  void showMsg(String str){
         Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
     }
@@ -67,16 +70,18 @@ public class MainActivity extends AppCompatActivity {
         btwrite=(Button)findViewById(R.id.btwrite);
         etWrite=(EditText)findViewById(R.id.etWrite);
         tvread=(TextView)findViewById(R.id.tvread);
+        btvss0=(Button)findViewById(R.id.btvss0);
 
 
         btfind.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if(bthAdapter.isDiscovering())bthAdapter.cancelDiscovery();
+            public void onClick(View view) {
+                if (bthAdapter.isDiscovering()) bthAdapter.cancelDiscovery();
                 bthAdapter.startDiscovery();
                 showMsg("Discovering...");
             }
         });
+
         btconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +109,20 @@ public class MainActivity extends AppCompatActivity {
                 tvread.setText(stSensorInput.toString()); //받은 결과가 잘 저장되어 있는가
             }
         });
+        btvss0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(arSensor0.size()>0){
+                    Double[] arDouble = new Double[arSensor0.size()];
+                    arDouble = arSensor0.toArray(arDouble);
+                    String str = "";
+                    for(Double x : arDouble){
+                        str += String.format("%g ",x);
+                    }
+                    showMsg(str);
+                } else showMsg("arSensor0 is empty.");
+            }
+        });
 
 
         bthReciver = new BluetoothReceiver(sBthName);
@@ -124,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         bthService = new AceBluetoothSerialService(this, bthAdapter);
+
+        arSensor0 = new ArrayList<Double>();
+        arSensor1 = new ArrayList<Double>();
+        arSensor2 = new ArrayList<Double>();
     }
     private void parseSensor(StringTok stSensorInput){
         while(stSensorInput.hasLine()){
@@ -141,6 +164,11 @@ public class MainActivity extends AppCompatActivity {
             double sensorVal = stToken.toDouble();
             showMsg(String.format("%d:%g",nSensor, sensorVal));
         }
+    }
+    private  void saveSensorVal(long nSensor, double sensorVal){
+        if(nSensor==0) arSensor0.add(sensorVal);
+            else if(nSensor ==1) arSensor1.add(sensorVal);
+            else if(nSensor ==2) arSensor2.add(sensorVal);
     }
 
     @Override
